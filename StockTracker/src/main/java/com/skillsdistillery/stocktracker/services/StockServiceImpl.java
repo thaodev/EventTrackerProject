@@ -52,7 +52,7 @@ public class StockServiceImpl implements StockService {
 	@Override
 	public boolean isStockDeletedFromSector(int sectorId, int stockId) {
 		boolean isDeleted = false;
-		Stock stockToDelete = stockRepo.findBySector_IdAndId(stockId, sectorId);
+		Stock stockToDelete = stockRepo.findBySector_IdAndId(sectorId,stockId);
 		if (stockToDelete != null) {
 			stockRepo.delete(stockToDelete);
 			isDeleted = true;

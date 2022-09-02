@@ -20,7 +20,7 @@ public class Sector {
 	
 	
 	private String name;
-	
+	//@JsonIgnore it won't print out list of stocks under sector
 	@JsonIgnoreProperties("sector")
 	@OneToMany(mappedBy = "sector")
 	private List<Stock> stocks;
