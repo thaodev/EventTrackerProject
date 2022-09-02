@@ -1,0 +1,11 @@
+id,symbol,company,PE ratio,Num Of Shares,Date,ClosePrice,Sector Id
+1,AAPL,Apple,26.26,16070M,2022-09-01,157.22,8
+2,GOOGL,Alphabet Inc,20.27,6881M,2022-09-01,108.22,1
+3,META,Meta Platforms Inc,13.03,2.7M,2022-09-01,162.93,1
+4,NFLX,Netflix Inc,20.92,444M,2022-09-02,221.24,1
+5,WFC,Wells Fargo & Co,10.48,3793M,2022-09-02,42.9,5
+6,SNOW,Snowflake Inc,11,318M,2022-09-02,168.33,8
+7,ZM,Zoom Video Communications Inc,24.59,297M,2022-09-02,78.26,8
+8,CUBE,Cubesmart,43.03,224M,2022-09-02,45.58,10
+9,EL,Estee Lauder Companies Inc,38.95,357M,2022-09-02,248.27,3
+10,WBA,Walgreens Boots Alliance Inc,5.95,864M,2022-09-02,34.75,3
