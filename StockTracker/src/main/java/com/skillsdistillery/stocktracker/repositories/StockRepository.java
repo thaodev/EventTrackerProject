@@ -9,5 +9,6 @@ import com.skillsdistillery.stocktracker.entities.Stock;
 public interface StockRepository extends JpaRepository<Stock, Integer> {
 	Stock findById(int stockId);
 	List<Stock> findBySectorId(int sectorId);
+	Stock findBySector_IdAndId(int sectorId, int stockId);
 
 }

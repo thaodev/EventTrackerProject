@@ -45,6 +45,14 @@ public class Sector {
 		this.name = name;
 	}
 
+	public List<Stock> getStocks() {
+		return stocks;
+	}
+
+	public void setStocks(List<Stock> stocks) {
+		this.stocks = stocks;
+	}
+
 	@Override
 	public String toString() {
 		return "Sector [id=" + id + ", name=" + name + "]";

@@ -98,10 +98,19 @@ public class Stock {
 	}
 	
 
+	public Sector getSector() {
+		return sector;
+	}
+
+	public void setSector(Sector sector) {
+		this.sector = sector;
+	}
+
 	@Override
 	public String toString() {
 		return "Stock [id=" + id + ", symbol=" + symbol + ", company=" + company + ", peRatio=" + peRatio
-				+ ", numberOfShares=" + numberOfShares + ", date=" + date + ", closePrice=" + closePrice + "]";
+				+ ", numberOfShares=" + numberOfShares + ", date=" + date + ", closePrice=" + closePrice + ", sector="
+				+ sector.getName() + "]";
 	}
 	
 

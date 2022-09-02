@@ -21,7 +21,7 @@ USE `stocktrackerdb` ;
 DROP TABLE IF EXISTS `sector` ;
 
 CREATE TABLE IF NOT EXISTS `sector` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -33,7 +33,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `stocks` ;
 
 CREATE TABLE IF NOT EXISTS `stocks` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `symbol` VARCHAR(45) NULL,
   `company` VARCHAR(45) NULL,
   `pe_ratio` DECIMAL(5,2) NULL,
