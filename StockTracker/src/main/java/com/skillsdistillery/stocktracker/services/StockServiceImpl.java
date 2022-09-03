@@ -48,6 +48,43 @@ public class StockServiceImpl implements StockService {
 		}
 		return null;
 	}
+	
+
+	@Override
+	public Stock updateStock(Stock stock, int stockId) {
+		Stock existing = stockRepo.findById(stockId);
+		if (existing == null) {
+			return null;
+		}
+		if (stock.getClosePrice() != null) {
+			existing.setClosePrice(stock.getClosePrice());
+		}
+		if (stock.getCompany() != null) {
+			existing.setCompany(stock.getCompany());
+		}
+		
+		if (stock.getDate() != null) {
+			existing.setDate(stock.getDate());
+		}
+		
+		if (stock.getNumberOfShares() != null) {
+			existing.setNumberOfShares(stock.getNumberOfShares());
+		}
+		
+		if (stock.getPeRatio() != null) {
+			existing.setPeRatio(stock.getPeRatio());
+		}
+		
+		if (stock.getSector() != null) {
+			existing.setSector(stock.getSector());
+		}
+		
+		if (stock.getSymbol() != null) {
+			existing.setSymbol(stock.getSymbol());
+		}
+		return stockRepo.saveAndFlush(existing);
+	}
+	
 
 	@Override
 	public boolean isStockDeletedFromSector(int sectorId, int stockId) {
@@ -60,7 +97,7 @@ public class StockServiceImpl implements StockService {
 		}
 		return isDeleted;
 	}
-	
+
 	
 
 

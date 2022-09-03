@@ -9,6 +9,7 @@ public interface StockService {
 	Stock findStockById(int stockId);
 	List<Stock> findStocksBySector(int sectorId);
 	Stock addStockBySector(int sectorId, Stock stock);
+	Stock updateStock(Stock stock, int stockId);
 	boolean isStockDeletedFromSector(int sectorId, int stockId);
 	
 
