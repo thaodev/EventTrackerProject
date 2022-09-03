@@ -7,6 +7,7 @@
     
     <!--entities -->
     <class>com.skillsdistillery.stockstracker.entities.Stock</class>
+    <class>com.skillsdistillery.stockstracker.entities.Sector</class>
 
     <!--entities -->
 
