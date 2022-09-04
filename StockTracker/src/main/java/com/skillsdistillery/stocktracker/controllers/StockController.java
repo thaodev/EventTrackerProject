@@ -30,6 +30,24 @@ public class StockController {
 		return stockServ.stockList();
 	}
 	
+	@GetMapping("stocks/{stockId}")
+	public Stock findStockById(@PathVariable int stockId, HttpServletResponse res){
+		
+		Stock stockToRetieve;
+		try {
+			stockToRetieve = stockServ.findStockById(stockId);
+			if (stockToRetieve == null) {
+				res.setStatus(404);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(400);
+			stockToRetieve  = null;
+		}
+		
+		return stockToRetieve;
+	}
+	
 	@GetMapping("/sectors/{sectorId}/stocks")
 	public List<Stock> findStocksBySector(@PathVariable int sectorId, HttpServletResponse res){
 		List<Stock> stocks = stockServ.findStocksBySector(sectorId);

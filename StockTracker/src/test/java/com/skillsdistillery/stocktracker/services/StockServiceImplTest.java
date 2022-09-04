@@ -1,6 +1,7 @@
 package com.skillsdistillery.stocktracker.services;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -22,6 +23,12 @@ class StockServiceImplTest {
 	void test_stock_Service_mapping() {
 		List<Stock> stockList = stockServ.stockList();
 		assertNotNull(stockList);
+	}
+	
+	@Test
+	void test_find_stock_by_sector() {
+		List<Stock> stocks = stockServ.findStocksBySector(1);
+		assertTrue(stocks.size() > 0);
 	}
 
 }
