@@ -11,12 +11,12 @@
 | HTTP Verb | URI                      | Request Body            | Response Body   | Purpose |
 |-----------|--------------------------|-------------------------|-----------------|---------|
 | GET       | `/api/stocks`            |                         | List of Stocks  | **List** or **collection** endpoint |
-| GET       | `/api/stocks/{stockId}`  |                         | Single stock    | **Retrieve** endpoint
-| GET       | `/api/sectors/{sectorId}/stocks` |                         | Stocks By Sector|
-| GET       | `/api/sectors/{sectorId}/stocks/{stockId}` |                         | Single stock|
-| POST      | `/api/recipes`           | JSON for a new Recipe   | Created recipe | **Create** endpoint |
-| PUT       | `/api/recipes/{recipeId}`| JSON for updating Recipe| Updated recipe | **Replace** endpoint |
-| DELETE    | `/api/recipes/{recipeId}`|                         |                | **Delete** route |
+| GET       | `/api/stocks/{stockId}`  |                         | Single stock | **Retrieve** endpoint
+| GET       | `/api/sectors/{sectorId}/stocks` |                 | Stocks By Sector| **Retrieve** endpoint
+| GET       | `/api/sectors/{sectorId}/stocks/{stockId}` |       | Single stock| **Retrieve** endpoint
+| POST      | `/api/sectors/{sectorId}/stock`| JSON for a new Stock   | Created stock by sector| **Create** endpoint |
+| PUT       | `/api/stocks/{stockId}`| JSON for updating stock| Updated stock | **Replace** endpoint |
+| DELETE    | `/api/stocks/{stockId}`|                         |                | **Delete** route |
 
 ## How to Run
 
@@ -26,6 +26,9 @@
 
 * Java
 * Spring, Spring Boot
-* TODO!!! FINISH List
+* Spring data JPA
+* Eclipse
 
 ## Lessons Learned
+* Using variety of HTTP Status codes, depending in on the content of response body.
+* 
