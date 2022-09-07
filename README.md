@@ -29,6 +29,14 @@
 * Spring data JPA
 * Eclipse
 * Postman
+* MySQL Workbench
+* SpringToolSuite4
+* Gradle
+* GitHub, Git
+* AWS EC2
+* Terminal
+* Postman
+
 
 ## Lessons Learned
 * Using variety of HTTP Status codes, depending in on the content of response body.
