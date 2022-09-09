@@ -98,6 +98,12 @@ public class StockServiceImpl implements StockService {
 		return isDeleted;
 	}
 
+	@Override
+	public List<Stock> findStocksBySymbolSearch(String keyword) {
+		List<Stock> stocks = stockRepo.findBySymbolContains(keyword);
+		return stocks;
+	}
+
 	
 
 

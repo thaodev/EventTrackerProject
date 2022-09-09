@@ -11,6 +11,7 @@ public interface StockService {
 	Stock addStockBySector(int sectorId, Stock stock);
 	Stock updateStock(Stock stock, int stockId);
 	boolean isStockDeletedFromSector(int sectorId, int stockId);
+	List<Stock> findStocksBySymbolSearch(String keyword);
 	
 
 }
