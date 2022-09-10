@@ -11,7 +11,7 @@ function init() {
 	//-Event handlers for buttons and stuff
 	loadAllEvents();
 }
-const addButton = (event) => {
+const addStock = (event) => {
 	event.preventDefault();
 	let stock = {
 		symbol: addStockForm.symbol.value,
@@ -29,11 +29,12 @@ const addButton = (event) => {
 	stock.sector = sectorP;
 	console.log(stock);
 	console.log(stock.id);
-	//if (typeof stock.id === 'undefined') {
+	
 	addNewStock(stock.sector.id, stock);
-	//} else {
-	//	updateStock(stock.id, stock);
-	//}
+	let p = document.createElement('p');
+	p.textContent = "Stock is add successfully";
+	document.addStockForm.appendChild(p);
+	
 };
 
 
@@ -51,7 +52,7 @@ function loadAllEvents() {
 
 	});
 
-	document.addStockForm.submit.addEventListener('click', addButton);
+	document.addStockForm.submit.addEventListener('click', addStock);
 
 }
 
@@ -157,27 +158,17 @@ function displaySectors(sectors) {
 		let li = document.createElement('li');
 		li.textContent = sector.name;
 		ul.appendChild(li);
-
 		li.addEventListener('click', function(event) {
-
 			let sectorHeader = document.getElementById("sectorHeader");
 			sectorHeader.textContent = "Stocks under sector: " + li.textContent;
 			getStocksBySector(sector.id);
 			let lis = document.getElementsByTagName('li');
 			for (let li of lis) {
-				//if (li.textContent === click) {
-				//li.style.backgroundColor = "green";
-				//}
 				li.style.backgroundColor = "white";
 			};
 			li.style.backgroundColor = "green";
-
 		});
-		//let click = li.textContent;
-
 	}
-
-
 }
 
 function getStocksBySector(sectorId) {
@@ -329,8 +320,5 @@ function updateStockForm(stock) {
 		updateStock(stock.id, stock);
 		console.log("stock id to update " + stock.id);
 	});
-	let p = document.createElement('div');
-	p.textContent = "addStock button is disable";
-	addStockForm.appendChild(p);
+
 }
-50.5;
