@@ -3,18 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <title>Stock Tracker</title>
-<script type = "text/javascript" src ="js/script.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
 	<h1>Welcome to Stock Tracker</h1>
-	
+
 	<form name="stockForm">
-		<input type="text" name="stockSymbol">
+		<input type="text" name="sector">
 		<button name="lookup">Get Stock By Symbol</button>
 	</form>
-	
-	
-	<div id ="stockList"></div>
-	<div id ="sectorList"></div>
+
+
+
+	<div id="sectorList"></div>
+	<div id="sectorHeader"></div>
+	<div id="stockList"></div>
+
+	<div id="addStockFormDiv">
+		<hr>
+		<form name="addStockForm">
+			<label for="symbol">Symbol</label> <input type="text" name="symbol">
+			<br> <label for="company">Company</label> <input type="text"
+				name="company"> <br> <label for="pe">PE Ratio</label> <input
+				type="number" name="pe"> <br> <label for="shares">Number
+				of Shares</label> <input type="text" name="shares"> <br> <label
+				for="date">Date</label> <input type="date" name="date"> <br>
+			<label for="price">Close Price</label> <input type="number"
+				name="price"> <br> <label for="sector">Sector</label> <select
+				name="sector">
+				<option value="Communication Services">Communication Services</option>
+				<option value="Consumer Discretionary">Consumer Discretionary</option>
+				<option value="Consumer Staples">Consumer Staples</option>
+				<option value="Energy">Energy</option>
+				<option value="Financials">Financials</option>
+				<option value="Health Care">Health Care</option>
+				<option value="Industrials">Industrials</option>
+				<option value="Information Technology">Information Technology</option>
+				<option value="Materials">Materials</option>
+				<option value="Real Estate">Real Estate</option>
+				<option value="Utilities">Utilities</option>
+			</select> <br>
+
+		<button name="addStock">Add Stock</button>
+		</form>
+	</div>
+
+
 </body>
 </html>
