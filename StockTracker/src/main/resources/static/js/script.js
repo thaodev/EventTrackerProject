@@ -21,11 +21,16 @@ const addButton = (event) => {
 	stock.numberOfShares = addStockForm.shares.value;
 	stock.date = addStockForm.date.value;
 	stock.closePrice = addStockForm.price.value;
-	stock.sectorId = addStockForm.sectorId.value;
+	
+	let sectorP = {
+		id : addStockForm.sectorId.value
+	};
+	
+	stock.sector = sectorP;
 	console.log(stock);
 	console.log(stock.id);
 	//if (typeof stock.id === 'undefined') {
-	addNewStock(stock.sectorId, stock);
+	addNewStock(stock.sector.id, stock);
 	//} else {
 	//	updateStock(stock.id, stock);
 	//}
@@ -310,8 +315,13 @@ function updateStockForm(stock) {
 	stock.numberOfShares = addStockForm.shares.value;
 	stock.date = addStockForm.date.value;
 	stock.closePrice = addStockForm.price.value;
-	stock.sectorId = addStockForm.sectorId.value;
-	console.log("stock to update " + stock.company);
+	stock.sector.id = addStockForm.sectorId.value;
+	let sectorUpdated = {
+		id: stock.sector.id,
+		
+	}
+	stock.sector = sectorUpdated;
+	console.log("sector of update stock " + stock.sector);
 	document.addStockForm.submit.removeEventListener('click', addButton);
 	document.addStockForm.submit.addEventListener('click', function(e) {
 		e.preventDefault();
