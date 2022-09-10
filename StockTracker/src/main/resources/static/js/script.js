@@ -2,7 +2,7 @@ window.addEventListener('load', function() {
 	console.log('script.js load');
 	init();
 
-	
+
 });
 
 function init() {
@@ -11,11 +11,31 @@ function init() {
 	//-Event handlers for buttons and stuff
 	loadAllEvents();
 }
+const addButton = (event) => {
+	event.preventDefault();
+	let stock = {
+		symbol: addStockForm.symbol.value,
+		company: addStockForm.company.value,
+	};
+	stock.peRatio = addStockForm.peRatio.value;
+	stock.numberOfShares = addStockForm.shares.value;
+	stock.date = addStockForm.date.value;
+	stock.closePrice = addStockForm.price.value;
+	stock.sectorId = addStockForm.sectorId.value;
+	console.log(stock);
+	console.log(stock.id);
+	//if (typeof stock.id === 'undefined') {
+	addNewStock(stock.sectorId, stock);
+	//} else {
+	//	updateStock(stock.id, stock);
+	//}
+};
+
 
 function loadAllEvents() {
-	//getStocks();
+
 	getSectors();
-	
+
 	document.stockForm.lookup.addEventListener('click', function(event) {
 		event.preventDefault();
 		let symbolSearch = document.stockForm.symbol.value;
@@ -23,28 +43,14 @@ function loadAllEvents() {
 			console.log("Symbol Search: " + symbolSearch);
 			getStocksBySymbolSearch(symbolSearch);
 		}
-		
+
 	});
-	document.addStockForm.addStock.addEventListener('click', function(event) {
-		event.preventDefault();
-		let stock = {
-			symbol: addStockForm.symbol.value,
-			company: addStockForm.company.value,
-			
-			
-		};
-		stock.peRatio = addStockForm.peRatio.value;
-		stock.numberOfShares = addStockForm.shares.value;
-		stock.date = addStockForm.date.value;
-		stock.closePrice = addStockForm.price.value;
-		stock.sectorId = addStockForm.sectorId.value;
-		console.log(stock);
-		addNewStock(stock.sectorId,stock);
-	
-		
-	});
-	
+
+	document.addStockForm.submit.addEventListener('click', addButton);
+
 }
+
+
 function getStocksBySymbolSearch(symbolSearch) {
 	let xhr = new XMLHttpRequest();
 	xhr.open("GET", "api/stocks/symbol/" + symbolSearch);
@@ -61,7 +67,7 @@ function getStocksBySymbolSearch(symbolSearch) {
 	xhr.send();
 }
 
-function displayStockDetailsBySymbol(stocks){
+function displayStockDetailsBySymbol(stocks) {
 	console.log(stocks);
 	let stockDiv = document.getElementById("stockDiv");
 	stockDiv.textContent = '';
@@ -77,34 +83,34 @@ function displayStockDetailsBySymbol(stocks){
 			let li = document.createElement('li');
 			li.textContent = "Symbol: " + stock.symbol;
 			ul.appendChild(li);
-			
+
 			li = document.createElement('li');
 			li.textContent = "Company: " + stock.company;
 			ul.appendChild(li);
-			
+
 			li = document.createElement('li');
 			li.textContent = "PE Ratio: " + stock.peRatio;
 			ul.appendChild(li);
-			
+
 			li = document.createElement('li');
 			li.textContent = "Date: " + stock.date;
 			ul.appendChild(li);
-			
+
 			li = document.createElement('li');
 			li.textContent = "Close Price: " + stock.closePrice;
 			ul.appendChild(li);
-			
+
 			li = document.createElement('li');
 			li.textContent = "Sector: " + stock.sector.name;
 			ul.appendChild(li);
-			
+
 			ul.appendChild(document.createElement('br'));
-			
+
 			let btn1 = document.createElement('button');
 			btn1.textContent = "update";
 			ul.appendChild(btn1);
 			btn1.addEventListener('click', function(e) {
-				updateStock(stock.id,stock);
+				populatePreexistingStockToTheForm(stock);
 			});
 			let btn2 = document.createElement('button');
 			btn2.textContent = "delete";
@@ -146,12 +152,27 @@ function displaySectors(sectors) {
 		let li = document.createElement('li');
 		li.textContent = sector.name;
 		ul.appendChild(li);
+
 		li.addEventListener('click', function(event) {
-			let sectorHeader = document.getElementById("sectorHeader");			
-			sectorHeader.textContent = "Stocks under sector: " +  li.textContent;	
+
+			let sectorHeader = document.getElementById("sectorHeader");
+			sectorHeader.textContent = "Stocks under sector: " + li.textContent;
 			getStocksBySector(sector.id);
-		})
+			let lis = document.getElementsByTagName('li');
+			for (let li of lis) {
+				//if (li.textContent === click) {
+				//li.style.backgroundColor = "green";
+				//}
+				li.style.backgroundColor = "white";
+			};
+			li.style.backgroundColor = "green";
+
+		});
+		//let click = li.textContent;
+
 	}
+
+
 }
 
 function getStocksBySector(sectorId) {
@@ -191,15 +212,15 @@ function displayStocksBySector(stocks) {
 
 }
 
-function addNewStock(sectorId,stock){
+function addNewStock(sectorId, stock) {
 	console.log(stock);
 	console.log(sectorId);
 	let xhr = new XMLHttpRequest();
-	xhr.open('POST', 'api/sectors/' + sectorId+ '/stock');
+	xhr.open('POST', 'api/sectors/' + sectorId + '/stock');
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200 || xhr.status === 201) {
-				console.log('Stock created')	
+				console.log('Stock created')
 			}
 			else if (xhr.status === 400) {
 				displayError('Invalid data');
@@ -224,13 +245,13 @@ function displayError(msg) {
 	addStockResult.style.color = 'red';
 }
 
-function updateStock(stockId,stock){
+function updateStock(stockId, stock) {
 	let xhr = new XMLHttpRequest();
 	xhr.open('PUT', 'api/stocks/' + stockId);
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200 || xhr.status === 201) {
-				console.log('Stock updated')	
+				console.log('Stock updated')
 			}
 			else if (xhr.status === 400) {
 				displayError('Invalid data');
@@ -248,13 +269,13 @@ function updateStock(stockId,stock){
 
 
 
-function deleteStock(sectorId,stockId){
+function deleteStock(sectorId, stockId) {
 	let xhr = new XMLHttpRequest();
-	xhr.open('DELETE', 'api/sectors/' +sectorId + "/stocks/" + stockId);
+	xhr.open('DELETE', 'api/sectors/' + sectorId + "/stocks/" + stockId);
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200 || xhr.status === 201 || xhr.status === 204) {
-				console.log('Stock deleted')	
+				console.log('Stock deleted')
 			}
 			else if (xhr.status === 400) {
 				displayError('Invalid data');
@@ -266,3 +287,40 @@ function deleteStock(sectorId,stockId){
 	}
 	xhr.send();
 }
+
+function populatePreexistingStockToTheForm(stock) {
+	addStockForm.symbol.value = stock.symbol;
+	addStockForm.company.value = stock.company;
+	addStockForm.peRatio.value = stock.peRatio;
+	addStockForm.shares.value = stock.numberOfShares;
+	addStockForm.date.value = stock.date;
+	addStockForm.price.value = stock.closePrice;
+	addStockForm.sectorId.value = stock.sector.id;
+	updateStockForm(stock);
+
+
+}
+
+function updateStockForm(stock) {
+
+	stock.symbol = document.getElementById("symbol").value;
+
+	stock.company = addStockForm.company.value;
+	stock.peRatio = addStockForm.peRatio.value;
+	stock.numberOfShares = addStockForm.shares.value;
+	stock.date = addStockForm.date.value;
+	stock.closePrice = addStockForm.price.value;
+	stock.sectorId = addStockForm.sectorId.value;
+	console.log("stock to update " + stock.company);
+	document.addStockForm.submit.removeEventListener('click', addButton);
+	document.addStockForm.submit.addEventListener('click', function(e) {
+		e.preventDefault();
+		updateStockForm(stock);
+		updateStock(stock.id, stock);
+		console.log("stock id to update " + stock.id);
+	});
+	let p = document.createElement('div');
+	p.textContent = "addStock button is disable";
+	addStockForm.appendChild(p);
+}
+50.5;

@@ -20,19 +20,21 @@
 	</div>
 	<div id="sectorHeader"></div>
 	<div id="stockList"></div>
-
+	
+	<hr>
 	<div id="addStockFormDiv">
-		<hr>
+		<h2>Stock Form</h2>
+		
 		<form name="addStockForm">
-			<label for="symbol">Symbol</label> <input type="text" name="symbol">
+			<label for="symbol">Symbol</label> <input type="text" id="symbol" name="symbol">
 			<br> <label for="company">Company</label> <input type="text"
-				name="company"> <br> <label for="pe">PE Ratio</label> <input
-				type="number" name="peRatio"> <br> <label for="shares">Number
-				of Shares</label> <input type="text" name="shares"> <br> <label
-				for="date">Date</label> <input type="date" name="date"> <br>
+				id="company" name="company"> <br> <label for="pe">PE Ratio</label> <input
+				type="number" id="ratio" name="peRatio"> <br> <label for="shares">Number
+				of Shares</label> <input type="text" id="shares" name="shares"> <br> <label
+				for="date">Date</label> <input type="date" id="date" name="date"> <br>
 			<label for="price">Close Price</label> <input type="number"
-				name="price"> <br> <label for="sector">Sector</label> <select
-				name="sectorId">
+				id="price" name="price"> <br> <label for="sector">Sector</label> <select
+				is="sectorId" name="sectorId">
 				<option value="1">Communication Services</option>
 				<option value="2">Consumer Discretionary</option>
 				<option value="3">Consumer Staples</option>
@@ -46,7 +48,7 @@
 				<option value="11">Utilities</option>
 			</select> <br>
 
-		<button name="addStock">Add Stock</button>
+		<button name="submit">submit</button>
 		</form>
 		
 	</div>
