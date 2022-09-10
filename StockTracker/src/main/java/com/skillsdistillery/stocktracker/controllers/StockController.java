@@ -108,5 +108,14 @@ public class StockController {
 		
 	}
 	
+	@GetMapping("/stocks/symbol/{keyword}")
+	public List<Stock> findStocksBySymbolSearch(@PathVariable String keyword, HttpServletResponse res){
+		List<Stock> stocks = stockServ.findStocksBySymbolSearch(keyword);
+		if (stocks == null) {
+			res.setStatus(404);
+		}
+		return stocks;
+	}
+	
 
 }

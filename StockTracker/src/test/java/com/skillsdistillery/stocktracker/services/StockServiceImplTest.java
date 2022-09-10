@@ -30,5 +30,10 @@ class StockServiceImplTest {
 		List<Stock> stocks = stockServ.findStocksBySector(1);
 		assertTrue(stocks.size() > 0);
 	}
+	@Test
+	void test_find_stock_by_symbol_search() {
+		List<Stock> stocks = stockServ.findStocksBySymbolSearch("a");
+		assertTrue(stocks.size() > 0);
+	}
 
 }
