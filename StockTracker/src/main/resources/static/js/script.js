@@ -24,15 +24,25 @@ function loadAllEvents() {
 			getStocksBySymbolSearch(symbolSearch);
 		}
 		
-	})
+	});
 	document.addStockForm.addStock.addEventListener('click', function(event) {
 		event.preventDefault();
-		let Stock = {
+		let stock = {
+			symbol: addStockForm.symbol.value,
+			company: addStockForm.company.value,
 			
-		}
+			
+		};
+		stock.peRatio = addStockForm.peRatio.value;
+		stock.numberOfShares = addStockForm.shares.value;
+		stock.date = addStockForm.date.value;
+		stock.closePrice = addStockForm.price.value;
+		stock.sectorId = addStockForm.sectorId.value;
+		console.log(stock);
+		addNewStock(stock.sectorId,stock);
 	
 		
-	})
+	});
 	
 }
 function getStocksBySymbolSearch(symbolSearch) {
@@ -114,6 +124,9 @@ function getSectors() {
 function displaySectors(sectors) {
 	let dataDiv = document.getElementById("sectorList");
 	dataDiv.textContent = '';
+	let h2 = document.createElement("h2");
+	h2.textContent = "Sector List";
+	dataDiv.appendChild(h2);
 	let ul = document.createElement('ul');
 	dataDiv.appendChild(ul);
 	for (let sector of sectors) {
@@ -165,3 +178,35 @@ function displayStocksBySector(stocks) {
 
 }
 
+function addNewStock(sectorId,stock){
+	console.log(stock);
+	console.log(sectorId);
+	let xhr = new XMLHttpRequest();
+	xhr.open('POST', 'api/sectors/' + sectorId+ '/stock');
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200 || xhr.status === 201) {
+				console.log('Stock created')	
+			}
+			else if (xhr.status === 400) {
+				displayError('Invalid data');
+			}
+			else {
+				displayError('Error creating stock: ' + xhr.status);
+			}
+		}
+	}
+	xhr.setRequestHeader("Content-type", "application/json");
+	let stockJson = JSON.stringify(stock);
+	let sectorIdJson = JSON.stringify(sectorId);
+	console.log(stockJson);
+	console.log(sectorIdJson);
+	xhr.send(stockJson);
+}
+
+function displayError(msg) {
+	let addStockResult = document.getElementById('addStockResult');
+	addStockResult.textContent = '';
+	addStockResult.textContent = msg;
+	addStockResult.style.color = 'red';
+}
