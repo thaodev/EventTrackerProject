@@ -99,6 +99,19 @@ function displayStockDetailsBySymbol(stocks){
 			ul.appendChild(li);
 			
 			ul.appendChild(document.createElement('br'));
+			
+			let btn1 = document.createElement('button');
+			btn1.textContent = "update";
+			ul.appendChild(btn1);
+			btn1.addEventListener('click', function(e) {
+				updateStock(stock.id,stock);
+			});
+			let btn2 = document.createElement('button');
+			btn2.textContent = "delete";
+			ul.appendChild(btn2);
+			btn2.addEventListener('click', function(e) {
+				deleteStock(stock.sector.id, stock.id);
+			});
 		}
 	}
 }
@@ -209,4 +222,47 @@ function displayError(msg) {
 	addStockResult.textContent = '';
 	addStockResult.textContent = msg;
 	addStockResult.style.color = 'red';
+}
+
+function updateStock(stockId,stock){
+	let xhr = new XMLHttpRequest();
+	xhr.open('PUT', 'api/stocks/' + stockId);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200 || xhr.status === 201) {
+				console.log('Stock updated')	
+			}
+			else if (xhr.status === 400) {
+				displayError('Invalid data');
+			}
+			else {
+				displayError('Error creating stock: ' + xhr.status);
+			}
+		}
+	}
+	xhr.setRequestHeader("Content-type", "application/json");
+	let stockJson = JSON.stringify(stock);
+	console.log(stockJson);
+	xhr.send(stockJson);
+}
+
+
+
+function deleteStock(sectorId,stockId){
+	let xhr = new XMLHttpRequest();
+	xhr.open('DELETE', 'api/sectors/' +sectorId + "/stocks/" + stockId);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200 || xhr.status === 201 || xhr.status === 204) {
+				console.log('Stock deleted')	
+			}
+			else if (xhr.status === 400) {
+				displayError('Invalid data');
+			}
+			else {
+				displayError('Error deleting stock: ' + xhr.status);
+			}
+		}
+	}
+	xhr.send();
 }
