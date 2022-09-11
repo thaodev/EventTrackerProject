@@ -64,6 +64,7 @@ function getStocksBySymbolSearch(symbolSearch) {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200) {
 				displayStockDetailsBySymbol(JSON.parse(xhr.responseText));
+				//JSON.parse is to parse JSON data into js object
 			}
 			else {
 				console.error("Error loading events: " + xhr.status);
