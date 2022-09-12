@@ -106,11 +106,15 @@ function displayStockDetailsBySymbol(stocks) {
 			li = document.createElement('li');
 			li.textContent = "Close Price: " + stock.closePrice;
 			ul.appendChild(li);
+			
+			li = document.createElement('li');
+			li.textContent = "Number of shares: " + stock.numberOfShares;
+			ul.appendChild(li);
 
 			li = document.createElement('li');
 			li.textContent = "Sector: " + stock.sector.name;
 			ul.appendChild(li);
-
+			
 			ul.appendChild(document.createElement('br'));
 
 			let btn1 = document.createElement('button');
