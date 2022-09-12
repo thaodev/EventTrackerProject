@@ -20,7 +20,7 @@
 
 ## How to Run
 
-### TODO!!! URL OF DEPLOYED APP
+### http://54.183.118.245:8080/StockTracker/
 
 ## Technologies Used
 
