@@ -13,6 +13,7 @@ export class StockComponent implements OnInit {
   stocks: Stock[] | null = null;
   symbolInitials: string[] | null = null;
   selectedSymbol = 'all';
+  keyword : string = '';
   constructor(private stockService: StockService) {}
 
   ngOnInit(): void {
@@ -39,14 +40,32 @@ export class StockComponent implements OnInit {
     this.reloadStock();
     if (this.stocks) {
       for (let stock of this.stocks) {
-        this.symbolInitials?.push(stock.symbol.substring(0,1));
+        this.symbolInitials?.push(stock.symbol.substring(0, 1));
       }
     }
   }
 
-  peRatioFormat(ratio : number){
-    if (ratio > 20) {return 'text-success'}
-    else if (ratio > 10) {return 'text-warning'}
-    else {return 'text-danger'};
+  peRatioFormat(ratio: number) {
+    if (ratio > 20) {
+      return 'text-success';
+    } else if (ratio > 10) {
+      return 'text-warning';
+    } else {
+      return 'text-danger';
+    }
+  }
+
+  searchBySymbolKeyword(keyword: string): void {
+    this.stockService.showBySymbolKeyword(keyword).subscribe({
+      next: (result) => {
+        this.stocks = result;
+      },
+      error: (nojoy) => {
+        console.error(
+          'TodoListHttpComponent.searchBySymbolKeyword(): error searching Search:'
+        );
+        console.error(nojoy);
+      },
+    });
   }
 }

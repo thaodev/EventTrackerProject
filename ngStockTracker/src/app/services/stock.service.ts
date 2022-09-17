@@ -37,6 +37,16 @@ export class StockService {
       );
     }
 
+    showBySymbolKeyword(keyword : string):  Observable<Stock[]> {
+      return this.http.get<Stock[]>(this.url +'/symbol/'+ keyword).pipe(
+        catchError((err: any) => {
+          console.error(err);
+          return throwError(
+             () => new Error( 'StockService.showBySymbolKeyword(): error search Symbol by Keyword: ' + err )
+          );
+        })
+      );;
+    }
 
 
 }

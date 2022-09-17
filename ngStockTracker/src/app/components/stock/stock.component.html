@@ -1,3 +1,8 @@
+<h1 class="text-center">Stock List</h1>
+<form class="d-flex justify-content-end">
+  <input type="text" name="keyword" [(ngModel)] = "keyword" /><button (click)="searchBySymbolKeyword(keyword)">Search by Symbol</button>
+  <br>
+</form >
 <div *ngIf="stocks">
   <span
     (click)="selectedSymbol = symbolInit"
