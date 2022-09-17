@@ -1,83 +1,167 @@
-<h1>Stock Tracker</h1>
-<h3>Sector List:</h3>
-<table class="table table-sm table-striped table-hover">
-  <thead>
-    <tr class="table-warning">
-      <th>No.</th>
-      <th>Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let sector of sectors">
-      <td>{{ sector.id }}</td>
-      <td (click)="loadStocksBySector(sector)">{{ sector.name }}</td>
-    </tr>
-  </tbody>
-</table>
-<div *ngIf="selected && stocks">
-  <hr />
-  <div *ngIf="stocks.length === 0">
-    <p>There is no stocks found in sector: {{ selected.name}}</p>
+<div class="container-fluid">
+  <h1 class="text-center">Stock Tracker</h1>
+  <h2><span class="badge bg-warning">Sector List:</span></h2>
+  <table class="table table-sm table-striped table-hover">
+    <thead>
+      <tr class="table-warning">
+        <th>No.</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sector of sectors">
+        <td>{{ sector.id }}</td>
+        <td (click)="loadStocksBySector(sector)">{{ sector.name }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="selected && stocks">
+    <hr />
+    <div *ngIf="stocks.length === 0">
+      <p>There is no stocks found in sector: {{ selected.name }}</p>
+    </div>
+    <div *ngIf="stocks.length > 0">
+      <p>There is {{ stocks.length }} stocks in sector {{ selected.name }}</p>
+      <table class="table table-sm table-striped table-hover">
+        <thead>
+          <tr class="table-info">
+            <th>No.</th>
+            <th>Symbol</th>
+            <th>Company</th>
+            <th>PE Ratio</th>
+            <th>No. of shares</th>
+            <th>Date</th>
+            <th>Close Price</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let stock of stocks">
+            <td>{{ stock.id }}</td>
+            <td>{{ stock.symbol }}</td>
+            <td>{{ stock.company }}</td>
+            <td>{{ stock.peRatio }}</td>
+            <td>{{ stock.numberOfShares }}</td>
+            <td>{{ stock.date }}</td>
+            <td>{{ stock.closePrice }}</td>
+            <td>
+              <button
+                class="btn btn-warning btn-sm"
+                (click)="stockSelectedToAction(stock); setEditStock()"
+              >
+                Edit
+              </button>
+              <button class="btn btn-info btn-sm" type="submit">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <div *ngIf="stocks.length > 0">
-    <p>There is {{stocks.length}} stocks in sector {{selected.name}}</p>
-    <table class="table table-sm table-striped table-hover">
-      <thead>
-        <tr class="table-info">
-          <th>No.</th>
-          <th>Symbol</th>
-          <th>Company</th>
-          <th>PE Ratio</th>
-          <th>No. of shares</th>
-          <th>Date</th>
-          <th>Close Price</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let stock of stocks">
-          <td>{{ stock.id }}</td>
-          <td>{{ stock.symbol }}</td>
-          <td>{{ stock.company }}</td>
-          <td>{{ stock.peRatio }}</td>
-          <td>{{ stock.numberOfShares }}</td>
-          <td>{{ stock.date }}</td>
-          <td>{{ stock.closePrice }}</td>
-          <td><button class="btn btn-warning btn-sm" (click)="stockSelectedToAction(stock);setEditStock()">Edit</button>
-            <button class="btn btn-info btn-sm" type="submit">Delete</button></td>
-        </tr>
-      </tbody>
-    </table>
+
+  <!-- form to edit stock -->
+  <div *ngIf="editStock">
+    <hr />
+    <h4>Edit Stock</h4>
+    <label>Symbol: </label
+    ><input type="text" name="symbol" [(ngModel)]="editStock.symbol" /><br />
+    <label>Company: </label
+    ><input type="text" name="company" [(ngModel)]="editStock.company" /><br />
+    <label>PE Ratio: </label
+    ><input type="text" name="peRatio" [(ngModel)]="editStock.peRatio" /><br />
+    <label>Number Of Shares: </label
+    ><input
+      type="text"
+      name="numberOfShares"
+      [(ngModel)]="editStock.numberOfShares"
+    /><br />
+    <label>Date: </label
+    ><input type="text" name="date" [(ngModel)]="editStock.date" /><br />
+    <label>Close Price: </label
+    ><input
+      type="text"
+      name="closePrice"
+      [(ngModel)]="editStock.closePrice"
+    /><br />
+    <button type="submit" (click)="updateStock(editStock)">Save</button>
+    <button type="submit" (click)="editStock = null">Cancel</button>
+  </div>
+
+  <!-- form to add stock -->
+  <div>
+    <hr />
+    <h2><span class="badge bg-success">Add Stock</span></h2>
+    <div class="input-group mb-3 col">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Symbol</span>
+      </div>
+      <input type="text" name="symbol" [(ngModel)]="newStock.symbol" /><br />
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Company</span>
+      </div>
+      <input type="text" name="company" [(ngModel)]="newStock.company" /><br />
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">PE Ratio</span>
+      </div>
+      <input type="text" name="peRatio" [(ngModel)]="newStock.peRatio" /><br />
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Number of shares</span>
+      </div>
+      <input
+        type="text"
+        name="numberOfShares"
+        [(ngModel)]="newStock.numberOfShares"
+      /><br />
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Date</span>
+      </div>
+      <input type="date" name="date" [(ngModel)]="newStock.date" />
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Close Price</span>
+      </div>
+      <input
+        type="number"
+        name="closePrice"
+        [(ngModel)]="newStock.closePrice"
+      />
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Sector</span>
+      </div>
+      <select
+      name="sectorToAddWithStock.id"
+      [(ngModel)]="sectorToAddWithStock.id"
+    >
+      <option value="1">Communication Services</option>
+      <option value="2">Consumer Discretionary</option>
+      <option value="3">Consumer Staples</option>
+      <option value="4">Energy</option>
+      <option value="5">Financials</option>
+      <option value="6">Health Care</option>
+      <option value="7">Industrials</option>
+      <option value="8">Information Technology</option>
+      <option value="9">Materials</option>
+      <option value="10">Real Estate</option>
+      <option value="11">Utilities</option>
+      <br /></select>
+    </div>
+    <button
+      type="submit"
+      class="btn btn-sm btn-success"
+      (click)="addStockBySector(sectorToAddWithStock.id, newStock)"
+    >
+      Add
+    </button>
   </div>
 </div>
-
-<!-- form to edit stock -->
-<div *ngIf="editStock">
-  <hr>
-  <h4>Edit Stock</h4>
-  <label>Symbol: </label><input type="text" name="symbol" [(ngModel)] = "editStock.symbol"/><br>
-  <label>Company: </label><input type="text" name="company" [(ngModel)] = "editStock.company"/><br>
-  <label>PE Ratio: </label><input type="text" name="peRatio" [(ngModel)] = "editStock.peRatio"/><br>
-  <label>Number Of Shares: </label><input type="text" name="numberOfShares" [(ngModel)] = "editStock.numberOfShares"><br>
-  <label>Date: </label><input type="text" name="date" [(ngModel)] = "editStock.date"/><br>
-  <label>Close Price: </label><input type="text" name="closePrice" [(ngModel)] = "editStock.closePrice"/><br>
-  <button type="submit" (click)="updateStock(editStock)" >Save</button>
-  <button type="submit" (click)="editStock = null" >Cancel</button>
-
-</div>
-
-<!-- form to add stock -->
-<div>
-  <hr>
-  <h4>Add Stock</h4>
-  <label>Symbol: </label><input type="text" name="symbol" [(ngModel)] = "newStock.symbol"/><br>
-  <label>Company: </label><input type="text" name="company" [(ngModel)] = "newStock.company"/><br>
-  <label>PE Ratio: </label><input type="text" name="peRatio" [(ngModel)] = "newStock.peRatio"/><br>
-  <label>Number Of Shares: </label><input type="text" name="numberOfShares" [(ngModel)] = "newStock.numberOfShares"><br>
-  <label>Date: </label><input type="text" name="date" [(ngModel)] = "newStock.date"/><br>
-  <label>Close Price: </label><input type="text" name="closePrice" [(ngModel)] = "newStock.closePrice"/><br>
-  <label>Sector: </label><input name="sectorToAddWithStock.id" [(ngModel)]="sectorToAddWithStock.id"/><br>
-  <button type="submit" (click)="addStockBySector(sectorToAddWithStock.id, newStock)" >Add</button>
-</div>
-
-
