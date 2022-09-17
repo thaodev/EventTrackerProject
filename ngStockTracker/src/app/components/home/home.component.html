@@ -18,7 +18,7 @@
   <div *ngIf="selected && stocks">
     <hr />
     <div *ngIf="stocks.length === 0">
-      <p>There is no stocks found in sector: {{ selected.name }}</p>
+      <p>There is no stocks found in sector: <span class="badge badge-fill bg-warning text-dark">{{ selected.name }}</span></p>
     </div>
     <div *ngIf="stocks.length > 0">
       <p>There is {{ stocks.length }} stocks in sector {{ selected.name }}</p>
@@ -51,7 +51,7 @@
               >
                 Edit
               </button>
-              <button class="btn btn-info btn-sm" type="submit">Delete</button>
+              <button class="btn btn-info btn-sm" type="submit" (click)="deleteStockBySector(selected.id, stock.id)">Delete</button>
             </td>
           </tr>
         </tbody>

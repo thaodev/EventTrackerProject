@@ -65,4 +65,15 @@ export class SectorService {
       })
     );
   }
+
+  destroy(sectorId: number, stockId: number): Observable<void> {
+    return this.http.delete<void>(this.url +'/'+ sectorId + '/stocks/' + stockId).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError(
+           () => new Error( 'SectorService.destroy(): error deleting Todo: ' + err )
+        );
+      })
+    );
+  }
 }

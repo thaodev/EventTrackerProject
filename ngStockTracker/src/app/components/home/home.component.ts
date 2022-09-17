@@ -110,6 +110,19 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  deleteStockBySector(sectorId: number, stockId: number){
+    this.sectorService.destroy(sectorId, stockId).subscribe({
+      next: () => {
+        this.reloadSector();
+        console.log("stock to delete: " + stockId);
+      },
+      error: (nojoy) => {
+        console.error('HomeHttpComponent.deleteStockBySector(): error deleting stock:');
+        console.error(nojoy);
+      },
+    });
+  }
+
 
 
 
