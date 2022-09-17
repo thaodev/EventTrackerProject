@@ -66,9 +66,14 @@ export class HomeComponent implements OnInit {
         }
     })
   }
+  stockSelectedToAction(stock: Stock) {
+    this.stockSelected = stock;
+  }
 
   setEditStock() {
     this.editStock = Object.assign({}, this.stockSelected);
+    console.log("stock to edit: " + this.editStock.symbol);
+
   }
 
   updateStock(stock: Stock): void {
@@ -78,6 +83,7 @@ export class HomeComponent implements OnInit {
         this.editStock = null;
         this.stockSelected = result;
         this.reloadSector();
+        //this.loadStocksBySector;
       },
       error: (nojoy) => {
         console.error('TodoListHttpComponent.updateStock(): error updating Stock:');

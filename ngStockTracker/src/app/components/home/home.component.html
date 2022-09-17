@@ -44,7 +44,8 @@
           <td>{{ stock.numberOfShares }}</td>
           <td>{{ stock.date }}</td>
           <td>{{ stock.closePrice }}</td>
-          <td><button class="btn btn-warning btn-sm" (click)="setEditStock()" type="submit">Edit</button><button class="btn btn-info btn-sm" type="submit">Delete</button></td>
+          <td><button class="btn btn-warning btn-sm" (click)="stockSelectedToAction(stock);setEditStock()">Edit</button>
+            <button class="btn btn-info btn-sm" type="submit">Delete</button></td>
         </tr>
       </tbody>
     </table>
@@ -53,8 +54,14 @@
 
 <div *ngIf="editStock">
   <h4>Edit Stock</h4>
-  <label>Symbol: </label><input type="text" name="symbol" [(ngModel)] = "editStock.symbol"/>
+  <label>Symbol: </label><input type="text" name="symbol" [(ngModel)] = "editStock.symbol"/><br>
+  <label>Company: </label><input type="text" name="company" [(ngModel)] = "editStock.company"/><br>
+  <label>PE Ratio: </label><input type="text" name="peRatio" [(ngModel)] = "editStock.peRatio"/><br>
+  <label>Number Of Shares: </label><input type="text" name="numberOfShares" [(ngModel)] = "editStock.numberOfShares"><br>
+  <label>Date: </label><input type="text" name="date" [(ngModel)] = "editStock.date"/><br>
+  <label>Close Price: </label><input type="text" name="closePrice" [(ngModel)] = "editStock.closePrice"/><br>
   <button type="submit" (click)="updateStock(editStock)" >Save</button>
+  <button type="submit" (click)="editStock = null" >Cancel</button>
 </div>
 
 
