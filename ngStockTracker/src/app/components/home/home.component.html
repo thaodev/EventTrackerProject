@@ -14,7 +14,6 @@
     </tr>
   </tbody>
 </table>
-
 <div *ngIf="selected && stocks">
   <hr />
   <div *ngIf="stocks.length === 0">
@@ -52,7 +51,9 @@
   </div>
 </div>
 
+<!-- form to edit stock -->
 <div *ngIf="editStock">
+  <hr>
   <h4>Edit Stock</h4>
   <label>Symbol: </label><input type="text" name="symbol" [(ngModel)] = "editStock.symbol"/><br>
   <label>Company: </label><input type="text" name="company" [(ngModel)] = "editStock.company"/><br>
@@ -62,6 +63,21 @@
   <label>Close Price: </label><input type="text" name="closePrice" [(ngModel)] = "editStock.closePrice"/><br>
   <button type="submit" (click)="updateStock(editStock)" >Save</button>
   <button type="submit" (click)="editStock = null" >Cancel</button>
+
+</div>
+
+<!-- form to add stock -->
+<div>
+  <hr>
+  <h4>Add Stock</h4>
+  <label>Symbol: </label><input type="text" name="symbol" [(ngModel)] = "newStock.symbol"/><br>
+  <label>Company: </label><input type="text" name="company" [(ngModel)] = "newStock.company"/><br>
+  <label>PE Ratio: </label><input type="text" name="peRatio" [(ngModel)] = "newStock.peRatio"/><br>
+  <label>Number Of Shares: </label><input type="text" name="numberOfShares" [(ngModel)] = "newStock.numberOfShares"><br>
+  <label>Date: </label><input type="text" name="date" [(ngModel)] = "newStock.date"/><br>
+  <label>Close Price: </label><input type="text" name="closePrice" [(ngModel)] = "newStock.closePrice"/><br>
+  <label>Sector: </label><input name="sectorToAddWithStock.id" [(ngModel)]="sectorToAddWithStock.id"/><br>
+  <button type="submit" (click)="addStockBySector(sectorToAddWithStock.id, newStock)" >Add</button>
 </div>
 
 

@@ -1,0 +1,16 @@
+<p>stock works!</p>
+<h3>Sector List:</h3>
+<table class="table table-sm table-striped table-hover">
+  <thead>
+    <tr class="table-warning">
+      <th>No.</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let sector of sectors">
+      <td>{{ sector.id }}</td>
+      <td>{{ sector.name }}</td>
+    </tr>
+  </tbody>
+</table>

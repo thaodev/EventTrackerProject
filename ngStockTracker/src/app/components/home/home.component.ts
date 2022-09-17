@@ -13,14 +13,17 @@ export class HomeComponent implements OnInit {
   sectors: Sector [] | null = null;
   stocks: Stock [] | null = null;
   stockSelected: Stock | null = null;
+  newStock = new Stock();
   editStock: Stock | null = null;
   selected : Sector | null = null;
+  sectorToAddWithStock = new Sector();
   constructor(
     private stockService: StockService, private sectorService: SectorService
   ) { }
 
   ngOnInit(): void {
-    this.reloadSector();
+   this.reloadSector();
+    console.log("inside init");
   }
 
   reloadSector() {
@@ -28,6 +31,8 @@ export class HomeComponent implements OnInit {
       {
         next: (sectors) => {
           this.sectors = sectors;
+          console.log("sectors loaded" + sectors);
+
         },
         error: (problem) => {
           console.error('SectorHttpComponent.reloadSector(): error loading sector list');
@@ -37,19 +42,19 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  reloadStock() {
-    this.stockService.index().subscribe(
-      {
-        next: (stocks) => {
-          this.stocks = stocks;
-        },
-        error: (problem) => {
-          console.error('SectorHttpComponent.reloadSector(): error loading sector list');
-          console.error(problem);
-        }
-      }
-    );
-  }
+  // reloadStock() {
+  //   this.stockService.index().subscribe(
+  //     {
+  //       next: (stocks) => {
+  //         this.stocks = stocks;
+  //       },
+  //       error: (problem) => {
+  //         console.error('SectorHttpComponent.reloadSector(): error loading sector list');
+  //         console.error(problem);
+  //       }
+  //     }
+  //   );
+  // }
 
   loadStocksBySector(sector: Sector){
     this.sectorService.stocksBySector(sector.id).subscribe({
@@ -86,11 +91,26 @@ export class HomeComponent implements OnInit {
         //this.loadStocksBySector;
       },
       error: (nojoy) => {
-        console.error('TodoListHttpComponent.updateStock(): error updating Stock:');
+        console.error('HomeHttpComponent.updateStock(): error updating Stock:');
         console.error(nojoy);
       },
     });
   }
+
+  addStockBySector(sectorId: number, stock : Stock): void {
+    this.sectorService.createStockBySector(sectorId, stock).subscribe({
+      next: (result) => {
+        this.newStock = new Stock();
+        //this.sectorToAddWithStock.id = sectorId;
+      },
+      error: (nojoy) => {
+        console.error('HomeHttpComponent.addStockBySector(): error adding Stock By Sector:');
+        console.error(nojoy);
+      },
+    });
+  }
+
+
 
 
 

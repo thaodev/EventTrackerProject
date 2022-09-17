@@ -1,10 +1,14 @@
+import { Sector } from './../models/sector';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+// import { Observable, catchError, throwError } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { throwError } from 'rxjs/internal/observable/throwError';
 import { Stock } from '../models/stock';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'platform'
 })
 export class StockService {
   private baseUrl = 'http://localhost:8084/'; // adjust port to match server
@@ -16,7 +20,7 @@ export class StockService {
       catchError((err: any) => {
         console.log(err);
         return throwError(
-          () => new Error('SectorService.index(): error retrieving pokemon: ' + err)
+          () => new Error('StockService.index(): error retrieving stock: ' + err)
         );
       })
       );
@@ -32,4 +36,5 @@ export class StockService {
         })
       );
     }
+
 }
