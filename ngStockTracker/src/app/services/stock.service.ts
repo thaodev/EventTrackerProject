@@ -21,4 +21,15 @@ export class StockService {
       })
       );
     }
+
+    update(stock : Stock): Observable<Stock>{
+      return this.http.put<Stock>(this.url +'/'+ stock.id, stock).pipe(
+        catchError((err: any) => {
+          console.error(err);
+          return throwError(
+             () => new Error( 'StockService.update(): error updating Stock: ' + err )
+          );
+        })
+      );
+    }
 }

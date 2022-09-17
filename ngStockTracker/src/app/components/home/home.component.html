@@ -21,6 +21,7 @@
     <p>There is no stocks found in sector: {{ selected.name}}</p>
   </div>
   <div *ngIf="stocks.length > 0">
+    <p>There is {{stocks.length}} stocks in sector {{selected.name}}</p>
     <table class="table table-sm table-striped table-hover">
       <thead>
         <tr class="table-info">
@@ -43,8 +44,17 @@
           <td>{{ stock.numberOfShares }}</td>
           <td>{{ stock.date }}</td>
           <td>{{ stock.closePrice }}</td>
+          <td><button class="btn btn-warning btn-sm" (click)="setEditStock()" type="submit">Edit</button><button class="btn btn-info btn-sm" type="submit">Delete</button></td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
+
+<div *ngIf="editStock">
+  <h4>Edit Stock</h4>
+  <label>Symbol: </label><input type="text" name="symbol" [(ngModel)] = "editStock.symbol"/>
+  <button type="submit" (click)="updateStock(editStock)" >Save</button>
+</div>
+
+

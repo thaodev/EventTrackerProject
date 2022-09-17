@@ -12,6 +12,8 @@ import { Stock } from 'src/app/models/stock';
 export class HomeComponent implements OnInit {
   sectors: Sector [] | null = null;
   stocks: Stock [] | null = null;
+  stockSelected: Stock | null = null;
+  editStock: Stock | null = null;
   selected : Sector | null = null;
   constructor(
     private stockService: StockService, private sectorService: SectorService
@@ -49,17 +51,12 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  displayStocksBySector(sector: Sector) {
-    this.selected = sector;
-    console.log("sector clicked: " + this.selected);
-  }
-
   loadStocksBySector(sector: Sector){
     this.sectorService.stocksBySector(sector.id).subscribe({
         next: (stocks) => {
           this.selected = sector;
           this.stocks = stocks;
-          console.log("sector clicked: " + this.selected);
+          console.log("sector clicked: " + this.selected.name);
           console.log("Number of Shares of stock 1" + stocks[0].numberOfShares);
 
         },
@@ -68,6 +65,25 @@ export class HomeComponent implements OnInit {
           console.error(problem);
         }
     })
+  }
+
+  setEditStock() {
+    this.editStock = Object.assign({}, this.stockSelected);
+  }
+
+  updateStock(stock: Stock): void {
+    this.stockService.update(stock).subscribe({
+      next: (result) => {
+        console.log("stock to update: " + stock.symbol);
+        this.editStock = null;
+        this.stockSelected = result;
+        this.reloadSector();
+      },
+      error: (nojoy) => {
+        console.error('TodoListHttpComponent.updateStock(): error updating Stock:');
+        console.error(nojoy);
+      },
+    });
   }
 
 
