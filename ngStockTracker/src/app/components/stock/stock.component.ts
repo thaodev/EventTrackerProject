@@ -1,51 +1,52 @@
+import { Stock } from 'src/app/models/stock';
 import { SectorService } from './../../services/sector.service';
 import { Component, OnInit } from '@angular/core';
 import { Sector } from 'src/app/models/sector';
+import { StockService } from 'src/app/services/stock.service';
 
 @Component({
   selector: 'app-stock',
   templateUrl: './stock.component.html',
-  styleUrls: ['./stock.component.css']
+  styleUrls: ['./stock.component.css'],
 })
 export class StockComponent implements OnInit {
-  sectors : Sector[] | null = null;
-  selected : Sector | null = null;
-  constructor(private sectorService : SectorService) { }
+  stocks: Stock[] | null = null;
+  symbolInitials: string[] | null = null;
+  selectedSymbol = 'all';
+  constructor(private stockService: StockService) {}
 
   ngOnInit(): void {
-    this.reloadSector();
-    console.log("inside init");
-   }
+    //this.reloadStock();
+    this.loadStocksBySymbolSort();
+    console.log('inside init');
+  }
 
-   reloadSector() {
-     this.sectorService.index().subscribe(
-       {
-         next: (sectors) => {
-           this.sectors = sectors;
-           console.log("sectors loaded" + sectors);
+  reloadStock() {
+    this.stockService.index().subscribe({
+      next: (stocks) => {
+        this.stocks = stocks;
+      },
+      error: (problem) => {
+        console.error(
+          'SectorHttpComponent.reloadSector(): error loading sector list'
+        );
+        console.error(problem);
+      },
+    });
+  }
 
-         },
-         error: (problem) => {
-           console.error('SectorHttpComponent.reloadSector(): error loading sector list');
-           console.error(problem);
-         }
-       }
-     );
-   }
-  //  loadStocksBySector(sector: Sector){
-  //   this.sectorService.stocksBySector(sector.id).subscribe({
-  //       next: (stocks) => {
-  //         this.selected = sector;
-  //        // this.stocks = stocks;
-  //         console.log("sector clicked: " + this.selected.name);
-  //         console.log("Number of Shares of stock 1" + stocks[0].numberOfShares);
+  loadStocksBySymbolSort() {
+    this.reloadStock();
+    if (this.stocks) {
+      for (let stock of this.stocks) {
+        this.symbolInitials?.push(stock.symbol.substring(0,1));
+      }
+    }
+  }
 
-  //       },
-  //       error: (problem) => {
-  //         console.error('StockListHttpComponent.loadStocksBySector(): error loading stock list');
-  //         console.error(problem);
-  //       }
-  //   })
-  // }
-
+  peRatioFormat(ratio : number){
+    if (ratio > 20) {return 'text-success'}
+    else if (ratio > 10) {return 'text-warning'}
+    else {return 'text-danger'};
+  }
 }

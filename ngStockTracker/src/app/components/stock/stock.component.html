@@ -1,16 +1,32 @@
-<p>stock works!</p>
-<h3>Sector List:</h3>
-<table class="table table-sm table-striped table-hover">
-  <thead>
-    <tr class="table-warning">
-      <th>No.</th>
-      <th>Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let sector of sectors">
-      <td>{{ sector.id }}</td>
-      <td>{{ sector.name }}</td>
-    </tr>
-  </tbody>
-</table>
+<div *ngIf="stocks">
+  <span
+    (click)="selectedSymbol = symbolInit"
+    *ngFor="let symbolInit of symbolInitials"
+    >{{ symbolInit }} hi |</span
+  >
+  <span>hi</span>
+  <table class="table table-sm table-striped table-hover">
+    <thead>
+      <tr class="table-info">
+        <th>No.</th>
+        <th>Symbol</th>
+        <th>Company</th>
+        <th>PE Ratio</th>
+        <th>No. of shares</th>
+        <th>Date</th>
+        <th>Close Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let stock of stocks | symbolSort: selectedSymbol">
+        <td>{{ stock.id }}</td>
+        <td>{{ stock.symbol }}</td>
+        <td>{{ stock.company }}</td>
+        <td [ngClass]="peRatioFormat(stock.peRatio)">{{ stock.peRatio }}</td>
+        <td>{{ stock.numberOfShares }}</td>
+        <td>{{ stock.date }}</td>
+        <td>{{ stock.closePrice }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

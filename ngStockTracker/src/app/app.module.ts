@@ -10,12 +10,17 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { StockComponent } from './components/stock/stock.component';
 import { SectorService } from './services/sector.service';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { DatePipe } from '@angular/common';
+import { SymbolSortPipe } from './pipes/symbol-sort.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    StockComponent
+    StockComponent,
+    NavigationComponent,
+    SymbolSortPipe
   ],
   imports: [
     BrowserModule,
@@ -24,7 +29,7 @@ import { SectorService } from './services/sector.service';
     HttpClientModule,
 
   ],
-  providers: [SectorService, StockService],
+  providers: [SectorService, StockService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
