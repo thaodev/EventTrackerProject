@@ -4,7 +4,7 @@ export class Stock {
   symbol: string;
   company: string;
   peRatio: number;
-  noOfShares: string;
+  numberOfShares: string;
   date: string;
   closePrice: number;
 
@@ -13,7 +13,7 @@ export class Stock {
   symbol: string= "",
   company: string= "",
   peRatio: number= 0,
-  noOfShares: string= "",
+  numberOfShares: string= "",
   date: string= "",
   closePrice: number= 0,
   ) {
@@ -21,7 +21,7 @@ export class Stock {
   this.symbol = symbol;
   this.company = company;
   this.peRatio = peRatio;
-  this.noOfShares = noOfShares;
+  this.numberOfShares = numberOfShares;
   this.date = date;
   this.closePrice = closePrice;
   }

@@ -1,19 +1,50 @@
 <h1>Stock Tracker</h1>
 <h3>Sector List:</h3>
-<table class="table table-sm table-striped table-hover ">
+<table class="table table-sm table-striped table-hover">
   <thead>
     <tr class="table-warning">
-      <th>Id</th>
+      <th>No.</th>
       <th>Name</th>
-
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let sector of sectors">
-      <td>{{ sector.id}}</td>
-      <td>{{ sector.name }}</td>
-
+      <td>{{ sector.id }}</td>
+      <td (click)="loadStocksBySector(sector)">{{ sector.name }}</td>
     </tr>
-
   </tbody>
 </table>
+
+<div *ngIf="selected && stocks">
+  <hr />
+  <div *ngIf="stocks.length === 0">
+    <p>There is no stocks found in sector: {{ selected.name}}</p>
+  </div>
+  <div *ngIf="stocks.length > 0">
+    <table class="table table-sm table-striped table-hover">
+      <thead>
+        <tr class="table-info">
+          <th>No.</th>
+          <th>Symbol</th>
+          <th>Company</th>
+          <th>PE Ratio</th>
+          <th>No. of shares</th>
+          <th>Date</th>
+          <th>Close Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let stock of stocks">
+          <td>{{ stock.id }}</td>
+          <td>{{ stock.symbol }}</td>
+          <td>{{ stock.company }}</td>
+          <td>{{ stock.peRatio }}</td>
+          <td>{{ stock.numberOfShares }}</td>
+          <td>{{ stock.date }}</td>
+          <td>{{ stock.closePrice }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
