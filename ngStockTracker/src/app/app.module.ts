@@ -13,6 +13,7 @@ import { SectorService } from './services/sector.service';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { DatePipe } from '@angular/common';
 import { SymbolSortPipe } from './pipes/symbol-sort.pipe';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SymbolSortPipe } from './pipes/symbol-sort.pipe';
     HomeComponent,
     StockComponent,
     NavigationComponent,
-    SymbolSortPipe
+    SymbolSortPipe,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
