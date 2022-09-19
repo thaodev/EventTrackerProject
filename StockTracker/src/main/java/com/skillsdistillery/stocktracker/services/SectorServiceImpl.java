@@ -19,4 +19,9 @@ public class SectorServiceImpl implements SectorService {
 		return secRepo.findAll();
 	}
 
+	@Override
+	public Sector showSectorById(int id) {
+		return secRepo.findById(id);
+	}
+
 }

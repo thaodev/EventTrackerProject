@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Sector } from './../models/sector';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -12,7 +13,7 @@ import { Stock } from '../models/stock';
 })
 export class StockService {
   private baseUrl = 'http://localhost:8084/'; // adjust port to match server
-  private url = this.baseUrl + 'api/stocks'; // change 'todos' to your API path
+  private url = environment.baseUrl + 'api/stocks'; // change 'todos' to your API path
   constructor(private http: HttpClient) { }
 
   index(): Observable<Stock[]> {

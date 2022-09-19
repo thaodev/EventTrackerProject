@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Sector } from '../models/sector';
@@ -9,7 +10,7 @@ import { Stock } from './../models/stock';
 })
 export class SectorService {
   private baseUrl = 'http://localhost:8084/'; // adjust port to match server
-  private url = this.baseUrl + 'api/sectors'; // change 'todos' to your API path
+  private url = environment.baseUrl + 'api/sectors'; // change 'todos' to your API path
   private newStock : Stock | null = null;
   constructor(private http: HttpClient) {}
 

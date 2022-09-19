@@ -7,5 +7,6 @@ import com.skillsdistillery.stocktracker.entities.Sector;
 public interface SectorService {
 	
 	List<Sector> sectorList();
+	Sector showSectorById(int id);
 
 }

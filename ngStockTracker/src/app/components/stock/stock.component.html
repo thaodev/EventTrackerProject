@@ -3,13 +3,12 @@
   <input type="text" name="keyword" [(ngModel)] = "keyword" /><button (click)="searchBySymbolKeyword(keyword)">Search by Symbol</button>
   <br>
 </form >
-<div *ngIf="stocks">
+<div *ngIf="stocks && symbolInitials">
   <span
-    (click)="selectedSymbol = symbolInit"
+    (click)="selectedSymbol = symbolInit" class="link-info"
     *ngFor="let symbolInit of symbolInitials"
-    >{{ symbolInit }} hi |</span
+    >{{ symbolInit }}|</span
   >
-  <span>hi</span>
   <table class="table table-sm table-striped table-hover">
     <thead>
       <tr class="table-info">
@@ -29,7 +28,7 @@
         <td>{{ stock.company }}</td>
         <td [ngClass]="peRatioFormat(stock.peRatio)">{{ stock.peRatio }}</td>
         <td>{{ stock.numberOfShares }}</td>
-        <td>{{ stock.date }}</td>
+        <td [ngClass]="formatDate(stock.date)">{{ stock.date }}</td>
         <td>{{ stock.closePrice }}</td>
       </tr>
     </tbody>

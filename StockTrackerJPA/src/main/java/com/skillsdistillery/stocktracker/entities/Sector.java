@@ -17,8 +17,6 @@ public class Sector {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	
-	
 	private String name;
 	//@JsonIgnore it won't print out list of stocks under sector
 	@JsonIgnoreProperties("sector")

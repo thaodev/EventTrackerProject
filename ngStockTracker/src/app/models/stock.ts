@@ -5,7 +5,7 @@ export class Stock {
   company: string;
   peRatio: number;
   numberOfShares: string;
-  date: string;
+  date: string | null;
   closePrice: number;
 
   constructor(
